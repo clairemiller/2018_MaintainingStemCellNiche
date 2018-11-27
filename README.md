@@ -12,7 +12,6 @@ These instructions will get you a copy of the project up and running on your loc
 * R to run plot scripts. Also require the following R packages:
     * exponentialsurvival to calculate decay fits, install from [this repository](https://github.com/MikeLydeamore/exponentialsurvival.git).
     * ggplot2 for plots
-    * Chaste R package
 
 ### Installing
 
