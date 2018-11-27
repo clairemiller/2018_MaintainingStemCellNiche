@@ -1,52 +1,55 @@
-# Miller, C., Crampin, E., Osborne, J. (2018). Maintaining the stem cell niche in multicellular models of epithelia.
+# Miller, C., Crampin, E., Osborne, J. (2019). Maintaining the stem cell niche in multicellular models of epithelia.
 
 This project provides all code required, additional to Chaste core code, to reproduce the results and plots shown in the above paper. 
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine.
 
 ### Prerequisites
 
-Chaste
-
-For rate plots: exponentialsurvival
-
-```
-Give examples
-```
+* Chaste core code and all dependencies. See installing section below.
+* R to run plot scripts. Also require the following R packages:
+    * exponentialsurvival to calculate decay fits, install from [this repository](https://github.com/MikeLydeamore/exponentialsurvival.git).
+    * ggplot2 for plots
+    * Chaste R package
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+This code uses a modified version of the core Chaste code. This modified version can be cloned from my [Chaste Repository](https://github.com/clairemiller/Chaste.git). Either follow the link or clone into a folder using the following command
 ```
-Give the example
+git clone https://github.com/clairemiller/Chaste.git [folder]
 ```
 
-And repeat
-
+Navigate to the `projects` folder and clone this project into a new folder.
 ```
-until finished
+git clone https://github.com/clairemiller/2019_MaintainingStemCellNicheEpithelia.git 2019_MaintainingStemCellNicheEpithelia
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Instructions on installing dependencies and running Chaste code can be found at the [Chaste wiki](https://chaste.cs.ox.ac.uk/trac/wiki). 
+
 
 ## Running the simulations
 
-Explain how to run the automated tests for this system
+The code for each set of simulations can be found in the `test` folder in the project directory. The fill simulation must be run before any other simulation. This is file `TestFillTissue.hpp`. As with all of the code in this project, the fill simulation takes a seed as input. So in order to run the test, it must first be compiled, then executed with the seed value as input. I.e. from the main Chaste directory run the following commands:
+```
+scons b=GccOpt co=1 projects/2019_MaintainingStemCellNicheEpithelia/test/TestFillTissue.hpp
+./projects/build/optimised/TestFillTissueRunner -seed [seed]
+```
+
+## Running the plot code
+
+All the plot code can be found in the project directory in the folder `plot_scripts`. All plotting code is in R. The user will have to change the necessary file paths for the results plot outputs in the scripts.
 
 ## Authors
 
 * **Claire Miller** - *Main developer* - The University of Melbourne
-* **James Osborne** - *Supervisor and code help* - The University of Melbourne
-* **Edmund Crampin** - "Supervisor" - The University of Melbourne
+* **James Osborne** - *Supervisor and code advice* - The University of Melbourne
+* **Edmund Crampin** - *Supervisor* - The University of Melbourne
 
 ## License
 
-This project is licensed under...
+This project is open source. 
 
 ## Acknowledgments
 
