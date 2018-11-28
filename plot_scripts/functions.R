@@ -1,16 +1,18 @@
-library(claires)
-library(plyr)
 library(dplyr)
-library(survival)
+library(ggplot2)
 library(exponentialsurvival)
 library(latex2exp)
 library(RColorBrewer)
+library(chaste)
 
 
 blue_hex <- "#29ACFF"
 red_hex <- "#F90201"
 brewer_palette <- "Set1"
 brewer_colours <- brewer.pal(8,brewer_palette)
+
+results_directory <- "/data/projects/punim0376/Paper1/"
+output_directory <- "/data/projects/punim0376/Figures/Plots/"
 
 extractParametersFromID <- function(id)
 {
@@ -84,9 +86,6 @@ findExpSurvFit <- function(time,count,seed,id)
   {
     rate = 0
   } else {
-    # Exponential - no surviving population
-    # sf <- survreg(Surv(time, status)~1, dist="exponential", data = input)
-    # rate <- as.numeric(exp(-sf$coefficients))
     # Exponential - with surviving population
     rate <- expsurv.fit(as.matrix(input))
   }
@@ -95,21 +94,20 @@ findExpSurvFit <- function(time,count,seed,id)
 
 outputPaperPlot <- function(p,filepath,pwidth=800,pheight=800,manual_colour=F,...)
 {
-  setwd('/Users/millerc2/Documents/Research_Docs/JournalPapers/ModellingCellDivision/figures/graphs/')
+  filepath <- paste0(output_directory,"/",filepath)
   # Change the theme
   p <- p + theme_classic()
   p <- p + theme(
                  panel.background = element_rect(colour = "black",fill=NA),
                  legend.key.size = unit(30,"pt"),
                  legend.text=element_text(size=rel(3), margin = margin(t=10, r=0, b = 10, l=0), hjust=0),
-                 #legend.title = element_text(face="bold"),
                  legend.margin=margin(t=10,l=10,r=10,b=10),
                  legend.background = element_rect(colour="black",fill=NA),
                  plot.margin = unit(c(30,30,10,10),"pt"),
                  title=element_text(size=rel(3)),
                  axis.text=element_text(size=rel(3)),
-                 strip.text=element_text(size=rel(4)),
-                 strip.background = element_rect(colour=NA),
+                 strip.text=element_text(size=rel(4),margin=margin(b=15,l=15)),
+                 strip.background = element_rect(colour=NA,fill=NA),
                  panel.spacing = unit(30,"pt"),
                  axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0),size=rel(1.5)),
                  axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0),size=rel(1.5)),
@@ -118,7 +116,7 @@ outputPaperPlot <- function(p,filepath,pwidth=800,pheight=800,manual_colour=F,..
   {
     p <- p + scale_color_brewer(palette=brewer_palette)
   }
-  png(paste(filepath,"png",sep="."),width=pwidth,height=pheight)
+  pdf(paste(filepath,"pdf",sep="."),width=pwidth/70,height=pheight/70)
   tryCatch(
     {
       print(p)
@@ -133,9 +131,9 @@ outputPaperPlot <- function(p,filepath,pwidth=800,pheight=800,manual_colour=F,..
 }
 
 
-
 # Collect and pre-process cell data to get the counts of attached----------
 readStemAttached <- function(filepath){
+  print(filepath)
   type <- readChasteResultsFile("results.vizcelltypes",filepath)
   mut <- readChasteResultsFile("results.vizmutationstates",filepath)
   i_sc_att <- which(type$v==0 & mut$v==4)
@@ -143,15 +141,13 @@ readStemAttached <- function(filepath){
   counts <- table(time)
   counts <- as.data.frame(counts)
   counts$seed <- strsplit(filepath,"Seed|/results")[[1]][2]
-  setup <- strsplit(filepath,"Mini//|3d//|/Seed")[[1]][2]
+  setup <- strsplit(filepath,"3d/|/Seed")[[1]][2]
   counts$id <- setup
   counts$time <- with(counts,as.numeric(levels(time)[as.numeric(time)]))
   counts$time <- with(counts, (time-min(time))/24)
   counts <- cbind(counts,extractParametersFromID(setup))
   return(counts)
 }
-
-
 
 
 
