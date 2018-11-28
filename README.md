@@ -10,8 +10,14 @@ These instructions will get you a copy of the project up and running on your loc
 
 * Chaste core code and all dependencies. See installing section below.
 * R to run plot scripts. Also require the following R packages:
-    * exponentialsurvival to calculate decay fits, install from [this repository](https://github.com/MikeLydeamore/exponentialsurvival.git).
-    * ggplot2 for plots
+    * GitHub packages, install using `library(devtools)` then `install_github("[repo]")`
+      * exponentialsurvival to calculate decay fits, repo: [MikeLydeamore/exponentialsurvival](https://github.com/MikeLydeamore/exponentialsurvival.git).
+      * chasteR to read in Chaste output files, repo: [clairemiller/chasteR](https://github.com/clairemiller/chasteR)
+    * CRAN packages, install using `install.packages("[package name]")`
+      * ggplot2
+      * dplyr
+      * latex2exp
+      * RColorBrewer
 
 ### Installing
 
