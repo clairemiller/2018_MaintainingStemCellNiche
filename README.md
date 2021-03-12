@@ -1,4 +1,4 @@
-# Miller, C., Crampin, E., Osborne, J. (2019). Maintaining the stem cell niche in multicellular models of epithelia.
+# Miller, C., Crampin, E., Osborne, J. (2021). Maintaining the stem cell niche in multicellular models of epithelia.
 
 This project provides all code required, additional to Chaste core code, to reproduce the results and plots shown in the above paper. 
 
