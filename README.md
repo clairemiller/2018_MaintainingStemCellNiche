@@ -28,7 +28,7 @@ git clone https://github.com/clairemiller/Chaste.git [folder]
 
 Navigate to the `projects` folder and clone this project into a new folder.
 ```
-git clone https://github.com/clairemiller/2021_MaintainingProliferativeCellNicheEpithelia .
+git clone https://github.com/clairemiller/2021_MaintainingProliferativeCellNicheEpithelia
 ```
 
 Instructions on installing dependencies and running Chaste code can be found at the [Chaste wiki](https://chaste.cs.ox.ac.uk/trac/wiki). 
